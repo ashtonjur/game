@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 200.0
-
+const SPEED = 100.0
 
 var screen_size = get_viewport_rect().size
 
@@ -18,9 +17,11 @@ func _physics_process(delta: float) -> void:
 		input_vector.y -= 1
 	
 	input_vector = input_vector.normalized()
-	velocity = input_vector * SPEED
+	velocity.x = input_vector.x * SPEED
+	velocity.y = input_vector.y * SPEED
+
 	move_and_slide()
-	
+
 	if velocity.x != 0:
 		$AnimatedSprite2D.play()
 		$AnimatedSprite2D.animation = "run"
@@ -36,5 +37,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		$AnimatedSprite2D.stop()
 		$AnimatedSprite2D.animation = "idle"
+
 	
 	
