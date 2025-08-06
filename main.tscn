@@ -275,3 +275,9 @@ texture = ExtResource("5_aypdu")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barrel"]
 z_as_relative = false
 shape = SubResource("CapsuleShape2D_1sxdt")
+
+[node name="NPC" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPC"]
