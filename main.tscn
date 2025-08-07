@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://bdw62fijy5jkn"]
+[gd_scene load_steps=35 format=4 uid="uid://bdw62fijy5jkn"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1luh3"]
 [ext_resource type="Texture2D" uid="uid://dg8td13gad3ig" path="res://assets/heroes/knight/knight_idle_spritesheet.png" id="2_es1pl"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://barrel.gd" id="5_16ure"]
 [ext_resource type="Texture2D" uid="uid://c4xcbenbsxito" path="res://assets/props_itens/barrel.png" id="5_aypdu"]
 [ext_resource type="Script" path="res://pusher.gd" id="5_ltsfr"]
+[ext_resource type="Script" path="res://npc.gd" id="8_l42fx"]
+[ext_resource type="Texture2D" uid="uid://ukofmiqfcaqd" path="res://assets/heroes/NPCs/Sprite2.png" id="9_qgvih"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wk3se"]
 texture = ExtResource("4_2oi5q")
@@ -199,6 +201,49 @@ height = 8.79293
 radius = 23.0
 height = 50.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sqdsc"]
+radius = 17.0
+height = 74.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcpmd"]
+atlas = ExtResource("9_qgvih")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dbhu"]
+atlas = ExtResource("9_qgvih")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fod8g"]
+atlas = ExtResource("9_qgvih")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aiut1"]
+atlas = ExtResource("9_qgvih")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xfi6t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mcpmd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dbhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fod8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aiut1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8dbw0"]
+radius = 77.0065
+
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
 
@@ -227,7 +272,7 @@ use_parent_material = true
 tile_set = SubResource("TileSet_nxa3g")
 use_kinematic_bodies = true
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(213, 57)
@@ -259,7 +304,7 @@ z_as_relative = false
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(601, 269)
-mass = 2.0
+mass = 1.5
 physics_material_override = SubResource("PhysicsMaterial_ms7w2")
 gravity_scale = 0.0
 lock_rotation = true
@@ -277,7 +322,39 @@ z_as_relative = false
 shape = SubResource("CapsuleShape2D_1sxdt")
 
 [node name="NPC" type="CharacterBody2D" parent="."]
+script = ExtResource("8_l42fx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC"]
+top_level = true
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(535, 102)
+shape = SubResource("CapsuleShape2D_sqdsc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPC"]
+texture_filter = 1
+position = Vector2(535, 97)
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_xfi6t")
+
+[node name="ProximityArea" type="Area2D" parent="NPC"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/ProximityArea"]
+position = Vector2(537, 126)
+shape = SubResource("CircleShape2D_8dbw0")
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="DialogueBubble" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="BubbleBox" type="NinePatchRect" parent="UI/DialogueBubble"]
+offset_right = 40.0
+offset_bottom = 40.0
+region_rect = Rect2(216, 126, 182, 101)
+
+[node name="DialogueLabel" type="Label" parent="UI/DialogueBubble/BubbleBox"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
