@@ -2,7 +2,7 @@ extends RigidBody2D
 
 @export var damping_factor: float = 0.3
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if linear_velocity.length() < 1:
 		linear_velocity = Vector2.ZERO
 	else:
