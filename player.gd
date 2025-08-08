@@ -18,7 +18,7 @@ func _physics_process(_delta: float) -> void:
 		input_vector.y += 1
 	if Input.is_action_pressed("ui_up"):
 		input_vector.y -= 1
-
+	
 	input_vector = input_vector.normalized()
 	velocity.x = input_vector.x * SPEED
 	velocity.y = input_vector.y * SPEED
