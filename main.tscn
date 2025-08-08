@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://bdw62fijy5jkn"]
+[gd_scene load_steps=39 format=4 uid="uid://bdw62fijy5jkn"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1luh3"]
 [ext_resource type="Texture2D" uid="uid://dg8td13gad3ig" path="res://assets/heroes/knight/knight_idle_spritesheet.png" id="2_es1pl"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://barrel.gd" id="5_16ure"]
 [ext_resource type="Texture2D" uid="uid://c4xcbenbsxito" path="res://assets/props_itens/barrel.png" id="5_aypdu"]
 [ext_resource type="Script" path="res://pusher.gd" id="5_ltsfr"]
+[ext_resource type="Script" path="res://npc.gd" id="8_y8v5g"]
 [ext_resource type="Texture2D" uid="uid://ukofmiqfcaqd" path="res://assets/heroes/NPCs/Sprite2.png" id="9_qgvih"]
 [ext_resource type="Script" path="res://crosshair.gd" id="10_a8kr1"]
 [ext_resource type="Texture2D" uid="uid://dgk5uflov0rjd" path="res://assets/heroes/knight/weapon_sword_1.png" id="11_ggv73"]
@@ -240,7 +241,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_aiut1")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
 "speed": 5.0
 }]
 
@@ -325,6 +326,7 @@ z_as_relative = false
 shape = SubResource("CapsuleShape2D_1sxdt")
 
 [node name="NPC" type="CharacterBody2D" parent="."]
+script = ExtResource("8_y8v5g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC"]
 top_level = true
@@ -338,12 +340,16 @@ texture_filter = 1
 position = Vector2(535, 101)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_xfi6t")
+animation = &"idle"
 
 [node name="ProximityArea" type="Area2D" parent="NPC"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/ProximityArea"]
 position = Vector2(535, 135)
 shape = SubResource("CircleShape2D_8dbw0")
+
+[node name="BubbleMarker" type="Marker2D" parent="NPC" groups=["dialogic_bubble_TARGET_NPC"]]
+position = Vector2(536, 92)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -364,3 +370,6 @@ scale = Vector2(3, 3)
 texture = ExtResource("11_ggv73")
 script = ExtResource("11_n6tbl")
 player_path = NodePath("../Player/CollisionShape2D")
+
+[connection signal="body_entered" from="NPC/ProximityArea" to="NPC" method="_on_proximity_area_body_entered"]
+[connection signal="body_exited" from="NPC/ProximityArea" to="NPC" method="_on_proximity_area_body_exited"]
