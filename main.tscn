@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://bdw62fijy5jkn"]
+[gd_scene load_steps=38 format=4 uid="uid://bdw62fijy5jkn"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1luh3"]
 [ext_resource type="Texture2D" uid="uid://dg8td13gad3ig" path="res://assets/heroes/knight/knight_idle_spritesheet.png" id="2_es1pl"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://pusher.gd" id="5_ltsfr"]
 [ext_resource type="Texture2D" uid="uid://ukofmiqfcaqd" path="res://assets/heroes/NPCs/Sprite2.png" id="9_qgvih"]
 [ext_resource type="Script" path="res://crosshair.gd" id="10_a8kr1"]
+[ext_resource type="Texture2D" uid="uid://dgk5uflov0rjd" path="res://assets/heroes/knight/weapon_sword_1.png" id="11_ggv73"]
+[ext_resource type="Script" path="res://sword.gd" id="11_n6tbl"]
 [ext_resource type="Texture2D" uid="uid://dgihnfpokvg32" path="res://assets/ui (new)/crosshair_1.png" id="11_ybwmv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wk3se"]
@@ -352,3 +354,13 @@ script = ExtResource("10_a8kr1")
 
 [node name="Sprite2D" type="Sprite2D" parent="UI/Crosshair"]
 texture = ExtResource("11_ybwmv")
+
+[node name="Sword" type="Sprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(285, 93)
+scale = Vector2(3, 3)
+texture = ExtResource("11_ggv73")
+script = ExtResource("11_n6tbl")
+player_path = NodePath("../Player/CollisionShape2D")
