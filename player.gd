@@ -29,14 +29,12 @@ func _physics_process(_delta: float) -> void:
 		$AnimatedSprite2D.play()
 		$AnimatedSprite2D.animation = "run"
 		$AnimatedSprite2D.flip_v = false
-		$AnimatedSprite2D.flip_h = velocity.x < 0
 	elif velocity.y != 0:
 		$AnimatedSprite2D.play()
 		$AnimatedSprite2D.animation = "run"
-		if $AnimatedSprite2D.flip_h == false:
-			$AnimatedSprite2D.flip_h = velocity.x < 0
-		else:
-			$AnimatedSprite2D.flip_h = true
 	else:
 		$AnimatedSprite2D.stop()
 		$AnimatedSprite2D.animation = "idle"
+
+	var mouse_pos := get_global_mouse_position()
+	$AnimatedSprite2D.flip_h = mouse_pos.x < global_position.x
