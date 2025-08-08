@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://bdw62fijy5jkn"]
+[gd_scene load_steps=36 format=4 uid="uid://bdw62fijy5jkn"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1luh3"]
 [ext_resource type="Texture2D" uid="uid://dg8td13gad3ig" path="res://assets/heroes/knight/knight_idle_spritesheet.png" id="2_es1pl"]
@@ -7,8 +7,9 @@
 [ext_resource type="Script" path="res://barrel.gd" id="5_16ure"]
 [ext_resource type="Texture2D" uid="uid://c4xcbenbsxito" path="res://assets/props_itens/barrel.png" id="5_aypdu"]
 [ext_resource type="Script" path="res://pusher.gd" id="5_ltsfr"]
-[ext_resource type="Script" path="res://npc.gd" id="8_l42fx"]
 [ext_resource type="Texture2D" uid="uid://ukofmiqfcaqd" path="res://assets/heroes/NPCs/Sprite2.png" id="9_qgvih"]
+[ext_resource type="Script" path="res://crosshair.gd" id="10_a8kr1"]
+[ext_resource type="Texture2D" uid="uid://dgihnfpokvg32" path="res://assets/ui (new)/crosshair_1.png" id="11_ybwmv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wk3se"]
 texture = ExtResource("4_2oi5q")
@@ -202,8 +203,8 @@ radius = 23.0
 height = 50.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sqdsc"]
-radius = 17.0
-height = 74.0
+radius = 13.0
+height = 48.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mcpmd"]
 atlas = ExtResource("9_qgvih")
@@ -322,39 +323,32 @@ z_as_relative = false
 shape = SubResource("CapsuleShape2D_1sxdt")
 
 [node name="NPC" type="CharacterBody2D" parent="."]
-script = ExtResource("8_l42fx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC"]
 top_level = true
 z_as_relative = false
 y_sort_enabled = true
-position = Vector2(535, 102)
+position = Vector2(535, 111)
 shape = SubResource("CapsuleShape2D_sqdsc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPC"]
 texture_filter = 1
-position = Vector2(535, 97)
+position = Vector2(535, 101)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_xfi6t")
 
 [node name="ProximityArea" type="Area2D" parent="NPC"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/ProximityArea"]
-position = Vector2(537, 126)
+position = Vector2(535, 135)
 shape = SubResource("CircleShape2D_8dbw0")
 
-[node name="UI" type="Node2D" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="DialogueBubble" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 0
+[node name="Crosshair" type="Node2D" parent="UI"]
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+script = ExtResource("10_a8kr1")
 
-[node name="BubbleBox" type="NinePatchRect" parent="UI/DialogueBubble"]
-offset_right = 40.0
-offset_bottom = 40.0
-region_rect = Rect2(216, 126, 182, 101)
-
-[node name="DialogueLabel" type="Label" parent="UI/DialogueBubble/BubbleBox"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="Sprite2D" type="Sprite2D" parent="UI/Crosshair"]
+texture = ExtResource("11_ybwmv")
