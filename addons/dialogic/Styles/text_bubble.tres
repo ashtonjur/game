@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="DialogicStyle" load_steps=9 format=3 uid="uid://e7ifjav0kbpe"]
+
+[ext_resource type="PackedScene" uid="uid://syki6k0e6aac" path="res://addons/dialogic/Modules/DefaultLayoutParts/Base_TextBubble/text_bubble_base.tscn" id="1_qpjhf"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="2_hat7q"]
+[ext_resource type="PackedScene" uid="uid://cn674foxwedqu" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Input/full_advance_input_layer.tscn" id="3_yw2is"]
+[ext_resource type="PackedScene" uid="uid://d2it0xiap3gnt" path="res://addons/dialogic/Modules/DefaultLayoutParts/Layer_Textbubble/text_bubble_layer.tscn" id="4_agy0v"]
+[ext_resource type="Script" path="res://addons/dialogic/Resources/dialogic_style.gd" id="5_wdlgv"]
+
+[sub_resource type="Resource" id="Resource_tpehi"]
+script = ExtResource("2_hat7q")
+scene = ExtResource("1_qpjhf")
+overrides = {}
+
+[sub_resource type="Resource" id="Resource_m3geo"]
+script = ExtResource("2_hat7q")
+scene = ExtResource("3_yw2is")
+overrides = {
+"disabled": "true"
+}
+
+[sub_resource type="Resource" id="Resource_kxiye"]
+script = ExtResource("2_hat7q")
+scene = ExtResource("4_agy0v")
+overrides = {}
+
+[resource]
+script = ExtResource("5_wdlgv")
+name = "text_bubble"
+layer_list = Array[String](["10", "11"])
+layer_info = {
+"": SubResource("Resource_tpehi"),
+"10": SubResource("Resource_m3geo"),
+"11": SubResource("Resource_kxiye")
+}
+base_overrides = {}
+layers = Array[ExtResource("2_hat7q")]([])
+metadata/_latest_layer = "11"
