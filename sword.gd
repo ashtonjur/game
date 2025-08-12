@@ -11,7 +11,7 @@ func _ready():
 func _process(delta):
 	if not player:
 		return
-
+	
 	var mouse_pos = get_global_mouse_position()
 	var direction = (mouse_pos - player.global_position).normalized()
 
@@ -21,3 +21,4 @@ func _process(delta):
 	global_position = player.global_position + direction * current_radius
 	rotation = direction.angle()
 	flip_v = direction.x < 0
+	

@@ -6,6 +6,7 @@ var screen_size = Vector2.ZERO
 
 func _ready():
 	screen_size = get_viewport().get_visible_rect().size 
+	add_to_group("player")
 
 func _physics_process(_delta: float) -> void:
 	var input_vector = Vector2.ZERO
@@ -38,3 +39,6 @@ func _physics_process(_delta: float) -> void:
 
 	var mouse_pos := get_global_mouse_position()
 	$AnimatedSprite2D.flip_h = mouse_pos.x < global_position.x
+
+func player():
+	pass
