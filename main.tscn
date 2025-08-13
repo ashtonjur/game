@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://bdw62fijy5jkn"]
+[gd_scene load_steps=50 format=4 uid="uid://bdw62fijy5jkn"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1luh3"]
 [ext_resource type="Texture2D" uid="uid://dg8td13gad3ig" path="res://assets/heroes/knight/knight_idle_spritesheet.png" id="2_es1pl"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://barrel.gd" id="5_16ure"]
 [ext_resource type="Texture2D" uid="uid://c4xcbenbsxito" path="res://assets/props_itens/barrel.png" id="5_aypdu"]
 [ext_resource type="Script" path="res://pusher.gd" id="5_ltsfr"]
+[ext_resource type="Texture2D" uid="uid://6gw2ehbndxss" path="res://assets/ui (new)/EButtonAnim.png" id="6_p0rnk"]
 [ext_resource type="Script" path="res://npc.gd" id="8_y8v5g"]
 [ext_resource type="Texture2D" uid="uid://ukofmiqfcaqd" path="res://assets/heroes/NPCs/Sprite2.png" id="9_qgvih"]
 [ext_resource type="Script" path="res://crosshair.gd" id="10_a8kr1"]
@@ -199,6 +200,73 @@ animations = [{
 radius = 3.57679
 height = 8.79293
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vf1x"]
+atlas = ExtResource("6_p0rnk")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vbrlj"]
+atlas = ExtResource("6_p0rnk")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnhe4"]
+atlas = ExtResource("6_p0rnk")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3r47o"]
+atlas = ExtResource("6_p0rnk")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74mqn"]
+atlas = ExtResource("6_p0rnk")
+region = Rect2(64, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psffr"]
+atlas = ExtResource("6_p0rnk")
+region = Rect2(80, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bh205"]
+atlas = ExtResource("6_p0rnk")
+region = Rect2(96, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okhbf"]
+atlas = ExtResource("6_p0rnk")
+region = Rect2(112, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ihb34"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vf1x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vbrlj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnhe4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3r47o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74mqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psffr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bh205")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_okhbf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1wg7o"]
+radius = 18.4328
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ms7w2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1sxdt"]
@@ -246,7 +314,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8dbw0"]
-radius = 77.0065
+radius = 98.4124
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -303,6 +371,23 @@ shape = SubResource("CapsuleShape2D_yn3r3")
 position = Vector2(9.54101, 9.4524)
 script = ExtResource("5_ltsfr")
 
+[node name="EButton" type="Node2D" parent="Player"]
+z_index = 8
+z_as_relative = false
+position = Vector2(256, 52)
+scale = Vector2(1.972, 2)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player/EButton"]
+texture_filter = 1
+position = Vector2(2.38419e-07, 0)
+sprite_frames = SubResource("SpriteFrames_ihb34")
+
+[node name="ProximityArea" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/ProximityArea" groups=["interaction"]]
+position = Vector2(9.10733, 10.1119)
+shape = SubResource("CircleShape2D_1wg7o")
+
 [node name="Barrel" type="RigidBody2D" parent="."]
 z_as_relative = false
 y_sort_enabled = true
@@ -325,7 +410,7 @@ texture = ExtResource("5_aypdu")
 z_as_relative = false
 shape = SubResource("CapsuleShape2D_1sxdt")
 
-[node name="NPC" type="CharacterBody2D" parent="."]
+[node name="NPC" type="CharacterBody2D" parent="." groups=["interaction"]]
 script = ExtResource("8_y8v5g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC"]
@@ -342,7 +427,8 @@ scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_xfi6t")
 animation = &"idle"
 
-[node name="ProximityArea" type="Area2D" parent="NPC"]
+[node name="ProximityArea" type="Area2D" parent="NPC" groups=["interaction"]]
+disable_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/ProximityArea"]
 position = Vector2(535, 135)
@@ -355,10 +441,12 @@ position = Vector2(536, 92)
 
 [node name="Crosshair" type="Node2D" parent="UI"]
 texture_filter = 1
+position = Vector2(38, 5)
 scale = Vector2(1.5, 1.5)
 script = ExtResource("10_a8kr1")
 
 [node name="Sprite2D" type="Sprite2D" parent="UI/Crosshair"]
+position = Vector2(-24.6667, -3.33333)
 texture = ExtResource("11_ybwmv")
 
 [node name="Sword" type="Sprite2D" parent="."]
@@ -371,5 +459,7 @@ texture = ExtResource("11_ggv73")
 script = ExtResource("11_n6tbl")
 player_path = NodePath("../Player/CollisionShape2D")
 
+[connection signal="area_entered" from="NPC/ProximityArea" to="Player" method="_on_proximity_area_area_entered"]
+[connection signal="area_exited" from="NPC/ProximityArea" to="Player" method="_on_proximity_area_area_exited"]
 [connection signal="body_entered" from="NPC/ProximityArea" to="NPC" method="_on_proximity_area_body_entered"]
 [connection signal="body_exited" from="NPC/ProximityArea" to="NPC" method="_on_proximity_area_body_exited"]

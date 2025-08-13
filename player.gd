@@ -3,13 +3,18 @@ extends CharacterBody2D
 const SPEED = 100.0
 
 var screen_size = Vector2.ZERO
+var player_in_interaction = false
+var current_interaction_body = null
 
 func _ready():
 	screen_size = get_viewport().get_visible_rect().size 
 	add_to_group("player")
+	$EButton.visible = false
+	$EButton.position = Vector2(0, 0)
 
 func _physics_process(_delta: float) -> void:
 	var input_vector = Vector2.ZERO
+	$EButton.position = Vector2(0, 0)
 
 	if Input.is_action_pressed("ui_right"):
 		input_vector.x += 1
@@ -39,6 +44,21 @@ func _physics_process(_delta: float) -> void:
 
 	var mouse_pos := get_global_mouse_position()
 	$AnimatedSprite2D.flip_h = mouse_pos.x < global_position.x
+	
+
+func _on_proximity_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("interaction"):
+		player_in_interaction = true
+		current_interaction_body= body
+		$EButton.visible = true
+		$EButton/AnimatedSprite2D.play("default")
+
+func _on_proximity_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("interaction"):
+		player_in_interaction = false
+		current_interaction_body = null
+		$EButton/AnimatedSprite2D.stop()
+		$EButton.visible = false
 
 func player():
 	pass

@@ -4,6 +4,7 @@ var is_chatting = false
 var player_in_area = false
 
 func _ready() -> void:
+	add_to_group("interaction")
 	if Dialogic.has_signal("dialogue_ended"):
 		Dialogic.connect("dialogue_ended", Callable(self, "_on_dialogue_ended"))
 
